@@ -11,8 +11,6 @@ import kotlinx.coroutines.launch
 // Implement the RfidEventsLister class to receive event notifications
 class EventHandler : RfidEventsListener {
 
-    val context: MainActivity? = null
-
     // Read Event Notification
     override fun eventReadNotify(e: RfidReadEvents) {
         // Recommended to use new method getReadTagsEx for better performance in case of large tag population
