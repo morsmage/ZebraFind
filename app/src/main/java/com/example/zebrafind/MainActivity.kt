@@ -24,7 +24,7 @@ var eventHandler = EventHandler()
 var MAX_POWER = 200
 var licensePlate = ""
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
 
     val textView: TextView by lazy { findViewById(R.id.textView) }
     val scanText: EditText by lazy { findViewById(R.id.scanText) }
@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         // Find the first RFID reader and connect to it
         readers = Readers(applicationContext, ENUM_TRANSPORT.SERVICE_SERIAL)
@@ -123,11 +124,11 @@ class MainActivity : AppCompatActivity() {
                 reader.Config.Antennas.setAntennaRfConfig(1, config)
 
                 // Set the singulation control
-                val s1_singulationControl: SingulationControl = reader.Config.Antennas.getSingulationControl(1)
-                s1_singulationControl.session = SESSION.SESSION_S0
-                s1_singulationControl.Action.inventoryState = INVENTORY_STATE.INVENTORY_STATE_A
-                s1_singulationControl.Action.slFlag = SL_FLAG.SL_ALL
-                reader.Config.Antennas.setSingulationControl(1, s1_singulationControl)
+                val s1SingulationControl: SingulationControl = reader.Config.Antennas.getSingulationControl(1)
+                s1SingulationControl.session = SESSION.SESSION_S0
+                s1SingulationControl.Action.inventoryState = INVENTORY_STATE.INVENTORY_STATE_A
+                s1SingulationControl.Action.slFlag = SL_FLAG.SL_ALL
+                reader.Config.Antennas.setSingulationControl(1, s1SingulationControl)
 
                 reader.Actions.PreFilters.deleteAll() // Delete any prefilters
 

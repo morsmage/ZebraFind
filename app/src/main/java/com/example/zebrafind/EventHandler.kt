@@ -3,10 +3,15 @@ package com.example.zebrafind
 import android.content.ContentValues
 import android.util.Log
 import com.zebra.rfid.api3.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 // Read/Status Notify handler
 // Implement the RfidEventsLister class to receive event notifications
 class EventHandler : RfidEventsListener {
+
+    val context: MainActivity? = null
 
     // Read Event Notification
     override fun eventReadNotify(e: RfidReadEvents) {
@@ -16,7 +21,9 @@ class EventHandler : RfidEventsListener {
             for (i in tags.indices) {
                 Log.d(ContentValues.TAG, "Tag ID ${tags[i].tagID}")
 
-                // MainActivity().textView.text = "Tag ID ${tags[i].tagID}"
+                CoroutineScope(Dispatchers.Main).launch {
+                    MainActivity().textView.text = "Tag ID ${tags[i].tagID}"
+                }
 
                 if (tags[i].tagID == "020000$licensePlate") {
                     Log.d(ContentValues.TAG, "External LP " + tags[i].tagID.takeLast(18))
